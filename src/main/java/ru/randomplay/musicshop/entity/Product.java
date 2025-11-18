@@ -1,6 +1,11 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
+import ru.randomplay.musicshop.model.ProductStatus;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -9,22 +14,27 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "producer", nullable = false)
-    private Producer producer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
 
-    @Column(name = "category", nullable = false)
-    private Category category;
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "cost", nullable = false)
-    private Double cost;
+    // Используем BigDecimal для гарантированной точности
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
+    @Enumerated(EnumType.STRING) // в БД будет сохраняться строка, вместо числа
     @Column(name = "status", nullable = false)
     private ProductStatus status;
+
+
+    // Используем HashSet, чтобы был поиск со скоростью O(1)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductCategoryLink> categoryLinks = new HashSet<>();
 
 }

@@ -1,0 +1,24 @@
+package ru.randomplay.musicshop.entity;
+
+import jakarta.persistence.*;
+import ru.randomplay.musicshop.model.CartStatus;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "carts")
+public class Cart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private CartStatus status;
+
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartItem> products = new HashSet<>();
+
+}
