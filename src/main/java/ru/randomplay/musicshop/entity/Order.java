@@ -2,6 +2,8 @@ package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import ru.randomplay.musicshop.model.PaymentStatus;
 
 import java.math.BigDecimal;
@@ -31,6 +33,7 @@ public class Order {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

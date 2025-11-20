@@ -37,4 +37,7 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private Set<WarehouseManager> warehouseManagers = new HashSet<>();
 
+    @OneToMany(mappedBy = "store")
+    private Set<Employee> employees = new HashSet<>();
+
 }

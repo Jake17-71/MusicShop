@@ -3,8 +3,10 @@ package ru.randomplay.musicshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.randomplay.musicshop.model.UserActivity;
+import ru.randomplay.musicshop.model.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -29,6 +31,10 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole role;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "activity", nullable = false)
     private UserActivity activity;
 
@@ -46,8 +52,8 @@ public class User implements UserDetails {
 
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public String getUsername() {
+        return email;
     }
 
     @Override
@@ -56,27 +62,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String role = this.getRole().name();
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return activity == UserActivity.ACTIVE;
     }
 }
