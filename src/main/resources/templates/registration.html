@@ -5,6 +5,43 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+    <h2>Регистрация</h2>
+    <form method="post" action="registration">
 
+        <div>
+            <label for="email">Почта:</label>
+            <input type="email" id="email" name="email" placeholder="ivanovivan@email.com" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" maxlength="32" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="first_name">Имя:</label>
+            <input type="text" id="first_name" name="firstName" maxlength="32" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="last_name">Фамилия:</label>
+            <input type="text" id="last_name" name="lastName" maxlength="32" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" name="phone" placeholder="+78005553535">
+        </div>
+        <br>
+
+        <button type="submit">Подтвердить</button>
+        <br>
+    </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div>
+    <h2>Вход в аккаунт</h2>
+    <form method="post" action="/login">
+        <div th:if="${error}">
+            Неправильная почта или пароль!
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <label for="email">Почта:</label>
+            <input type="email" id="email" name="email" placeholder="ivanovivan@email.com" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" maxlength="32" required>
+        </div>
+        <br>
+
+        <button type="submit">Подтвердить</button>
+        <br>
+        <br>
+    </form>
+</div>
+
+<div>
+    <a href="registration">Регистрация</a>
+</div>
+
+<div>
+    <a>Забыли пароль?</a>
+</div>
+
+</body>
+</html>
