@@ -19,7 +19,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
@@ -29,7 +29,7 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private WorkerStatus status = WorkerStatus.ACTIVE;
+    private WorkerStatus status;
 
 
     @OneToMany(mappedBy = "employee")

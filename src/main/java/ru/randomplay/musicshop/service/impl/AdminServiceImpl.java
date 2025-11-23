@@ -25,5 +25,6 @@ public class AdminServiceImpl implements AdminService {
         User createdUser = adminMapper.toUser(adminCreateRequest);
         createdUser.setPassword(passwordEncoder.encode(adminCreateRequest.getPassword()));
         userRepository.save(createdUser);
+        // спросить у дип сика как получать магазин чрез форму
     }
 }

@@ -10,7 +10,7 @@ import ru.randomplay.musicshop.entity.User;
 public interface CustomerMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", constant = "CUSTOMER")
-    @Mapping(target = "activity", ignore = true)
+    @Mapping(target = "activity", constant = "ACTIVE")
     @Mapping(target = "registeredAt", ignore = true)
     User toUser(CustomerCreateRequest customerCreateRequest);
 }
