@@ -39,4 +39,10 @@ public class WarehouseManagerController {
         supplierService.save(supplierCreateRequest);
         return "redirect:/warehouse/suppliers";
     }
+
+    @PostMapping("/add/product")
+    public String newProduct(@ModelAttribute SupplierCreateRequest supplierCreateRequest) {
+        supplierService.save(supplierCreateRequest);
+        return "redirect:/warehouse/suppliers";
+    }
 }

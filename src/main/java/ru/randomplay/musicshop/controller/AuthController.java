@@ -34,7 +34,7 @@ public class AuthController {
             //noinspection SpringMVCViewInspection
             case "ROLE_EMPLOYEE" -> "redirect:/employee/products";
             //noinspection SpringMVCViewInspection
-            case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse/suppliers";
+            case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse-manager/suppliers";
             //noinspection SpringMVCViewInspection
             case "ROLE_ADMIN" -> "redirect:/admin/dashboard";
             default -> "redirect:/home";

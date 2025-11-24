@@ -92,6 +92,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mvnpm</groupId>
+            <artifactId>sass</artifactId>
+            <version>1.94.2</version>
+        </dependency>
     </dependencies>
 
     <build>
