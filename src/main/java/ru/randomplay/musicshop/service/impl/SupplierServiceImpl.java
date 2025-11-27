@@ -14,13 +14,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SupplierServiceImpl  implements SupplierService {
+public class SupplierServiceImpl implements SupplierService {
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
 
     @Override
+    public SupplierResponse get(Long id) {
+        return supplierMapper.toSupplierResponse(supplierRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Supplier with this ID doesn't exist")));
+    }
+
+    @Override
     public List<SupplierResponse> getAll() {
-        return supplierMapper.toSupplierRespondeList(supplierRepository.findAll());
+        return supplierMapper.toSupplierResponseList(supplierRepository.findAll());
     }
 
     @Override

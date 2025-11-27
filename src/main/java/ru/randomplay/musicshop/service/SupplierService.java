@@ -6,6 +6,8 @@ import ru.randomplay.musicshop.dto.response.SupplierResponse;
 import java.util.List;
 
 public interface SupplierService {
+    SupplierResponse get(Long id);
+
     List<SupplierResponse> getAll();
 
     void save(SupplierCreateRequest supplierCreateRequest);

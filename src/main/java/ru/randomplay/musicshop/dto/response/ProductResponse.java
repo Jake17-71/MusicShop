@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductResponse {
+    private Long id;
     private String supplierName;
     private String name;
     private BigDecimal price;

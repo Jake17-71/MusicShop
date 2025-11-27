@@ -50,6 +50,12 @@ public class WarehouseManagerController {
         return "warehouse/newProduct";
     }
 
+    @GetMapping("/update/supplier/{id}")
+    public String updateSupplierPage(Model model, @PathVariable Long id) {
+        model.addAttribute("supplier", supplierService.get(id));
+        return "warehouse/updateSupplier";
+    }
+
     @PostMapping("/add/supplier")
     public String newSupplier(@Valid @ModelAttribute SupplierCreateRequest supplierCreateRequest) {
         supplierService.save(supplierCreateRequest);

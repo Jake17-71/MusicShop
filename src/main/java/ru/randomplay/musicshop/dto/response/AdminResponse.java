@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class AdminResponse {
+    private Long id;
     private String email;
     private String activity;
     private String firstName;

@@ -15,5 +15,8 @@ public interface SupplierMapper {
     @Mapping(target = "products", ignore = true)
     Supplier toSupplier(SupplierCreateRequest supplierCreateRequest);
 
-    List<SupplierResponse> toSupplierRespondeList(List<Supplier> suppliers);
+    SupplierResponse toSupplierResponse(Supplier supplier);
+
+    List<SupplierResponse> toSupplierResponseList(List<Supplier> suppliers);
+
 }

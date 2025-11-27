@@ -12,6 +12,7 @@
 <a href="/admin/add">Добавить админа</a>
 <table th:bgcolor="black">
     <tr th:bgcolor="lightgrey">
+        <th>ID</th>
         <th>Почта</th>
         <th>Активность</th>
         <th>Имя</th>
@@ -20,6 +21,7 @@
         <th>Дата регистрации</th>
     </tr>
     <tr th:each="admin : ${admins}" th:bgcolor="lightgrey">
+        <td th:text="${admin.id}"></td>
         <td th:text="${admin.email}"></td>
         <td th:text="${admin.activity}"></td>
         <td th:text="${admin.firstName}"></td>

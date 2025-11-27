@@ -18,5 +18,7 @@ public interface AdminMapper {
     @Mapping(target = "authorities", ignore = true)
     User toUser(AdminCreateRequest adminCreateRequest);
 
+    AdminResponse toAdminResponse(User user);
+
     List<AdminResponse> toAdminResponseList(List<User> users);
 }
