@@ -43,7 +43,8 @@ public class WarehouseManagerController {
     }
 
     @GetMapping("/add/product")
-    public String newProductPage(Model model, @RequestParam(required = false) String error) {
+    public String newProductPage(Model model,
+                                 @RequestParam(required = false) String error) {
         model.addAttribute("error", error);
         model.addAttribute("suppliers", supplierService.getAll());
         model.addAttribute("categories", categoryService.getAll());
@@ -51,9 +52,21 @@ public class WarehouseManagerController {
     }
 
     @GetMapping("/update/supplier/{id}")
-    public String updateSupplierPage(Model model, @PathVariable Long id) {
+    public String updateSupplierPage(Model model,
+                                     @PathVariable Long id) {
         model.addAttribute("supplier", supplierService.get(id));
         return "warehouse/updateSupplier";
+    }
+
+    @GetMapping("/update/product/{id}")
+    public String updateProductPage(Model model,
+                                    @PathVariable Long id,
+                                    @RequestParam(required = false) String error) {
+        model.addAttribute("error", error);
+        model.addAttribute("product", productService.get(id));
+        model.addAttribute("suppliers", supplierService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
+        return "warehouse/updateProduct";
     }
 
     @PostMapping("/add/supplier")
@@ -94,7 +107,8 @@ public class WarehouseManagerController {
     }
 
     @PostMapping("/update/supplier/{id}")
-    public String updateSupplier(@PathVariable Long id, @Valid @ModelAttribute SupplierRequest supplierRequest) {
+    public String updateSupplier(@PathVariable Long id,
+                                 @Valid @ModelAttribute SupplierRequest supplierRequest) {
         supplierService.update(id, supplierRequest);
         return "redirect:/warehouse-manager/suppliers";
     }

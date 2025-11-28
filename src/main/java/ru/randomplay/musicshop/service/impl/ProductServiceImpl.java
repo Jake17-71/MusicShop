@@ -27,6 +27,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
+    public ProductResponse get(Long id) {
+        return productMapper.toProductResponse(productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product with this id doesn't exist")));
+    }
+
+    @Override
     public List<ProductResponse> getAll() {
         return productMapper.toProductResponseList(productRepository.findAllWithCategories());
     }

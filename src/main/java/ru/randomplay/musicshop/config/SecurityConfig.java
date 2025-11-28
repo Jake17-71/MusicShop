@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         // Разрешаем данные эндпоинты для всех
-                        .requestMatchers("/login", "/registration", "/home").permitAll()
+                        .requestMatchers("/login", "/registration").permitAll()
                         .requestMatchers("/styles/**").permitAll()
                         .requestMatchers("/employee/**").hasRole("EMPLOYEE")
                         .requestMatchers("/warehouse-manager/**").hasRole("WAREHOUSE_MANAGER")
