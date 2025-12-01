@@ -50,6 +50,11 @@
     --input-width: 320px;
   }
 
+  &--textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
   &[type="file"] {
     --input-wide-width: 320px;
 
@@ -228,6 +233,79 @@
 
 .label__category {
   align-self: flex-start;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  width: var(--input-width);
+}
+
+.custom-select-search {
+  cursor: pointer;
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 0;
+  overflow-y: auto;
+  background-color: var(--bg-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  margin-top: 4px;
+  z-index: 1000;
+  box-shadow: var(--shadow-l);
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: var(--transition-duration);
+
+  &.show {
+    max-height: 200px;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.custom-select-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-color);
+  transition-duration: var(--transition-duration);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @include hover {
+    background-color: var(--bg);
+  }
+
+  &:active {
+    background-color: var(--primary);
+    color: var(--bg-light);
+  }
+
+  &--empty-message {
+    color: var(--text-muted);
+    display: none;
+    pointer-events: none;
+
+    @include hover {
+      background-color: var(--bg-light);
+    }
+
+    &:active {
+      background-color: var(--bg-light);
+      color: var(--text-muted);
+    }
+
+    &.show {
+      display: block;
+    }
+  }
 }
 
 @keyframes shake {

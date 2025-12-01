@@ -5,4 +5,10 @@
   flex-direction: column;
   gap: 12px;
   @include fluid-text(22, 16);
+
+  &--tables {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 56px;
+  }
 }
