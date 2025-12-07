@@ -13,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductResponse {
     private Long id;
-    private String supplierName;
     private String name;
     private BigDecimal price;
     private Integer quantity;
     private ProductStatus status;
     private String imageFilename;
     private List<String> categoryNames;
+    private String supplierName;
 }

@@ -53,4 +53,12 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.updateCategory(updatedCategory, categoryUpdateRequest);
         categoryRepository.save(updatedCategory);
     }
+
+    @Override
+    public void delete(Long id) {
+        Category deleteCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Category with this ID doesn't exist"));
+
+        categoryRepository.delete(deleteCategory);
+    }
 }

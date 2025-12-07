@@ -1,6 +1,7 @@
 package ru.randomplay.musicshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void save(CustomerCreateRequest customerCreateRequest) {
         if (userRepository.findByEmail(customerCreateRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this email already exists");
+            throw new IllegalArgumentException("User with email '" + customerCreateRequest.getEmail() + "' already exists");
         }
 
         User createdUser = customerMapper.toUser(customerCreateRequest);
@@ -35,5 +36,11 @@ public class CustomerServiceImpl implements CustomerService {
         Customer createdCustomer = Customer.create(createdUser, createdCart);
 
         customerRepository.save(createdCustomer);
+    }
+
+    @Override
+    public Customer findByUserEmail(String email) {
+        return customerRepository.findByUserEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Customer with email '" + email + "' doesn't exist"));
     }
 }

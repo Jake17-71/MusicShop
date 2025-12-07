@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Обновление администратора</title>
+    <title>Добавление категории</title>
     <meta
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -20,13 +20,13 @@
 
 <body>
 <section class="section container">
-    <h1 class="h2">Изменение информации о категории</h1>
-
+    <h1 class="h2">Добавление новой категории</h1>
     <form
             method="post"
-            th:action="@{/admin/update/category/{id}(id=${category.id})}"
+            action="/employee/add/category"
             class="form"
     >
+
         <div class="field">
             <label for="name">Название:</label>
             <input
@@ -36,7 +36,6 @@
                     minlength="3"
                     maxlength="32"
                     class="input input--wide"
-                    th:value="${category.name}"
                     required
             >
         </div>
@@ -53,8 +52,6 @@
                     minlength="4"
                     maxlength="256"
                     class="input input--wide input--textarea"
-                    th:text="${category.description}"
-                    th:value="${category.description}"
             ></textarea>
         </div>
 

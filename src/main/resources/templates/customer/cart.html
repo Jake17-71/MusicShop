@@ -20,43 +20,36 @@
 
 <body>
 <section class="section container">
-    <a
-            href="/cart"
-            class="link tables__controls-button"
-    >Корзина</a>
-
-    <h1 class="h2">Каталог товаров</h1>
+    <h1 class="h2">Корзина</h1>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Наименование</th>
-            <th scope="col">Цена</th>
+            <th scope="col">Товар</th>
             <th scope="col">Изображение</th>
-            <th scope="col">Категории</th>
+            <th scope="col">Количество</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="product : ${products}">
+        <tr th:each="cartItem : ${cartItems}">
             <td>
                 <a
-                        th:href="@{/product/{id}(id=${product.id})}"
-                        th:text="${product.name}"
+                        th:href="@{/product/{id}(id=${cartItem.productId})}"
+                        th:text="${cartItem.productName}"
                 ></a>
             </td>
-            <td th:text="${product.price}"></td>
             <td class="td__image">
                 <img
-                        th:if="${product.imageFilename != null}"
-                        th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"
+                        th:if="${cartItem.productImageFilename != null}"
+                        th:src="@{/images/products/{fileName}(fileName=${cartItem.productImageFilename})}"
                         alt="Изображение товара"
                         width="100"
                         height="100"
                         loading="lazy"
                 >
-                <span th:if="${product.imageFilename == null}">Нет изображения</span>
+                <span th:if="${cartItem.productImageFilename == null}">Нет изображения</span>
             </td>
-            <td th:text="${#lists.isEmpty(product.categoryNames) ? 'Нет категорий' : #strings.listJoin(product.categoryNames, ', ')}"></td>
+            <td th:text="${cartItem.quantity}"></td>
         </tr>
         </tbody>
     </table>

@@ -1,0 +1,64 @@
+package ru.randomplay.musicshop.service.impl;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.randomplay.musicshop.dto.response.CartItemResponse;
+import ru.randomplay.musicshop.entity.Cart;
+import ru.randomplay.musicshop.entity.CartItem;
+import ru.randomplay.musicshop.entity.Product;
+import ru.randomplay.musicshop.mapper.CartItemMapper;
+import ru.randomplay.musicshop.repository.CartRepository;
+import ru.randomplay.musicshop.repository.ProductRepository;
+import ru.randomplay.musicshop.service.CartService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CartServiceImpl implements CartService {
+    private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartItemMapper cartItemMapper;
+
+    @Override
+    public List<CartItemResponse> getAll(Cart cart) {
+        List<CartItem> cartItemList = new ArrayList<>(cart.getCartItems());
+        return cartItemMapper.toCartItemResponseList(cartItemList);
+    }
+
+    @Override
+    @Transactional
+    public void addProduct(Cart cart, Long productId, Integer quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product with id " + productId + " doesn't exist"));
+
+        // Находим уже существующий cartItem
+        CartItem existingItem = cart.getCartItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        // Проверяем, что сохраняемое количество не превышает хранящееся на складе
+        int newQuantity = (existingItem != null) ? existingItem.getQuantity() + quantity : quantity;
+        if (newQuantity > product.getQuantity()) {
+            throw new IllegalArgumentException("Not enough stock for product with id " + product.getId() +
+                    ". Available: " + product.getQuantity() +
+                    ", requested total: " + newQuantity);
+        }
+
+        // Применяем изменения / сохраняем
+        if (existingItem != null) {
+            existingItem.setQuantity(newQuantity);
+        } else {
+            CartItem newItem = new CartItem();
+            newItem.setCart(cart);
+            newItem.setProduct(product);
+            newItem.setQuantity(newQuantity);
+            cart.getCartItems().add(newItem);
+        }
+
+        cartRepository.save(cart);
+    }
+}

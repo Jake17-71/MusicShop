@@ -22,46 +22,101 @@
 </head>
 
 <body>
-<section class="section container">
-    <h1 class="h2">Список Товаров</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Поставщик</th>
-            <th scope="col">Наименование</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Количество</th>
-            <th scope="col">Статус</th>
-            <th scope="col">Изображение</th>
-            <th scope="col">Категории</th>
-        </tr>
-        </thead>
+<section class="section container section--tables">
+    <h1 class="visually-hidden">Информация по таблицам</h1>
 
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.supplierName}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.quantity}"></td>
-            <td th:text="${product.status}"></td>
-            <td class="td__image">
-                <img
-                        th:if="${product.imageFilename != null}"
-                        th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"
-                        alt="Изображение товара"
-                        width="100"
-                        height="100"
-                        loading="lazy"
-                >
-                <span th:if="${product.imageFilename == null}">Нет изображения</span>
-            </td>
-            <td
-                    th:text="${#lists.isEmpty(product.categoryNames) ? 'Нет категорий' : #strings.listJoin(product.categoryNames, ', ')}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="tables tables__controls">
+        <a
+                href="/employee/dashboard?table=orders"
+                class="link tables__controls-button"
+        >Список заказов</a>
+        <a
+                href="/employee/dashboard?table=products"
+                class="link tables__controls-button"
+        >Список товаров</a>
+        <a
+                href="/employee/dashboard?table=categories"
+                class="link tables__controls-button"
+        >Список категорий</a>
+    </div>
+
+    <div class="tables tables__wrapper">
+        <div th:remove="${orders} ? 'tag' : 'all'">
+
+        </div>
+
+        <div th:remove="${products} ? 'tag' : 'all'">
+            <h1 class="h2">Список Товаров</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Поставщик</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Изображение</th>
+                    <th scope="col">Категории</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.supplierName}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="${product.status}"></td>
+                    <td class="td__image">
+                        <img
+                                th:if="${product.imageFilename != null}"
+                                th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"
+                                alt="Изображение товара"
+                                width="100"
+                                height="100"
+                                loading="lazy"
+                        >
+                        <span th:if="${product.imageFilename == null}">Нет изображения</span>
+                    </td>
+                    <td th:text="${#lists.isEmpty(product.categoryNames) ? 'Нет категорий' : #strings.listJoin(product.categoryNames, ', ')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:remove="${categories} ? 'tag' : 'all'">
+            <h2 class="h2">Список категорий</h2>
+            <a
+                    class="link"
+                    href="/employee/add/category"
+            >Добавить категорию
+            </a>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Описание</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td>
+                        <a
+                                th:href="@{/employee/update/category/{id}(id=${category.id})}"
+                                th:text="${category.id}"
+                        ></a>
+                    </td>
+                    <td th:text="${category.name}"></td>
+                    <td th:text="${#strings.isEmpty(category.description)} ? 'Нет описания' : ${category.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 </body>
 </html>

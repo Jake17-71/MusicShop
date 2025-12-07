@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // делаем кастомный запрос, чтобы избиваться от N+1
     @Query("SELECT DISTINCT p FROM Product p " +
             "LEFT JOIN FETCH p.categoryLinks cl " +
-            "LEFT JOIN FETCH cl.category")
+            "LEFT JOIN FETCH cl.category " +
+            "LEFT JOIN FETCH p.supplier")
     List<Product> findAllWithCategories();
 }

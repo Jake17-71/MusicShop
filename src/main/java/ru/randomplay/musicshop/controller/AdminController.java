@@ -19,7 +19,6 @@ public class AdminController {
     private final EmployeeService employeeService;
     private final WarehouseManagerService warehouseManagerService;
     private final StoreService storeService;
-    private final CategoryService categoryService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model,
@@ -36,9 +35,6 @@ public class AdminController {
                     break;
                 case "stores":
                     model.addAttribute("stores", storeService.getAll());
-                    break;
-                case "categories":
-                    model.addAttribute("categories", categoryService.getAll());
                     break;
                 default:
                     model.addAttribute("admins", adminService.getAll());
@@ -68,11 +64,6 @@ public class AdminController {
     @GetMapping("/add/store")
     public String addStorePage() {
         return "admin/newStore";
-    }
-
-    @GetMapping("/add/category")
-    public String addCategoryPage() {
-        return "admin/newCategory";
     }
 
     @GetMapping("/update/{id}")
@@ -105,13 +96,6 @@ public class AdminController {
         return "admin/updateStore";
     }
 
-    @GetMapping("/update/category/{id}")
-    public String updateCategoryPage(Model model,
-                                     @PathVariable Long id) {
-        model.addAttribute("category", categoryService.get(id));
-        return "admin/updateCategory";
-    }
-
     @PostMapping("/add")
     public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
         adminService.save(adminCreateRequest);
@@ -134,12 +118,6 @@ public class AdminController {
     public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
         storeService.save(storeCreateRequest);
         return "redirect:/admin/dashboard?table=stores";
-    }
-
-    @PostMapping("/add/category")
-    public String addCategory(@Valid @ModelAttribute CategoryCreateRequest categoryCreateRequest) {
-        categoryService.save(categoryCreateRequest);
-        return "redirect:/admin/dashboard?table=categories";
     }
 
     @PostMapping("/update/{id}")
@@ -168,12 +146,5 @@ public class AdminController {
                               @Valid @ModelAttribute StoreUpdateRequest storeUpdateRequest) {
         storeService.update(id, storeUpdateRequest);
         return "redirect:/admin/dashboard?table=stores";
-    }
-
-    @PostMapping("/update/category/{id}")
-    public String updateCategory(@PathVariable Long id,
-                                 @Valid @ModelAttribute CategoryUpdateRequest categoryUpdateRequest) {
-        categoryService.update(id, categoryUpdateRequest);
-        return "redirect:/admin/dashboard?table=categories";
     }
 }
