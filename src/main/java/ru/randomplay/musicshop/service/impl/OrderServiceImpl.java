@@ -7,6 +7,7 @@ import ru.randomplay.musicshop.dto.response.OrderResponse;
 import ru.randomplay.musicshop.entity.*;
 import ru.randomplay.musicshop.mapper.OrderMapper;
 import ru.randomplay.musicshop.model.CartStatus;
+import ru.randomplay.musicshop.model.PaymentStatus;
 import ru.randomplay.musicshop.repository.CustomerRepository;
 import ru.randomplay.musicshop.repository.OrderRepository;
 import ru.randomplay.musicshop.repository.ProductRepository;
@@ -72,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
         cart.setStatus(CartStatus.COMPLETED);
         order.setCart(cart);
         order.setTotalPrice(totalPrice);
+        order.setStatus(PaymentStatus.PENDING);
 
         // Даём покупателю новую пустую корзину
         customer.setCart(new Cart());
@@ -81,10 +83,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void confirmOrder(Employee employee, Long orderId) {
+    public void confirm(Employee employee, Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order with ID " + orderId + " doesn't exist"));
         order.setEmployee(employee);
+        order.setStatus(PaymentStatus.PAID);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void reject(Employee employee, Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order with ID " + orderId + " doesn't exist"));
+        order.setEmployee(employee);
+        order.setStatus(PaymentStatus.FAILED);
         orderRepository.save(order);
     }
 }

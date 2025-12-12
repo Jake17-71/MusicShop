@@ -43,18 +43,32 @@
             <h1 class="h2">Список поставок</h1>
             <a
                     class="link"
-                    href="/warehouse-manager/add/supplier"
-            >Добавить поставщика</a>
+                    href="/warehouse-manager/add/supply"
+            >Добавить поставку</a>
             <table class="table">
                 <thead>
                 <tr>
-                    <!--                    -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Заведующий складом</th>
+                    <th scope="col">Дата поставки</th>
+                    <th scope="col">Поставленные товары</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr th:each="supply : ${supplies}">
-                    <!--                    -->
+                    <th th:text="${supply.id}"></th>
+                    <th th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></th>
+                    <th th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></th>
+                    <th>
+                        <ol class="table__ol">
+                            <li
+                                    class="table__item"
+                                    th:each="product : ${supply.supplyItems}"
+                                    th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
+                            ></li>
+                        </ol>
+                    </th>
                 </tr>
                 </tbody>
             </table>
@@ -82,7 +96,7 @@
                 <tbody>
                 <tr th:each="supplier : ${suppliers}">
                     <td>
-                        <a th:href="@{/warehouse-manager/update/supplier/{id}(id=${supplier.id})}"
+                        <a th:href="@{'/warehouse-manager/update/supplier/' + ${supplier.id}}"
                            th:text="${supplier.id}"></a>
                     </td>
                     <td th:text="${supplier.name}"></td>
@@ -118,7 +132,7 @@
                 <tbody>
                 <tr th:each="product : ${products}">
                     <td>
-                        <a th:href="@{/warehouse-manager/update/product/{id}(id=${product.id})}"
+                        <a th:href="@{'/warehouse-manager/update/product/' + ${product.id}}"
                            th:text="${product.id}"></a>
                     </td>
                     <td th:text="${product.supplierName}"></td>

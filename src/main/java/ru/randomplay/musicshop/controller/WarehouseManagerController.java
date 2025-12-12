@@ -3,17 +3,19 @@ package ru.randomplay.musicshop.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.dto.create.SupplyCreateRequest;
 import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
 import ru.randomplay.musicshop.dto.update.SupplierUpdateRequest;
-import ru.randomplay.musicshop.service.CategoryService;
-import ru.randomplay.musicshop.service.ProductService;
-import ru.randomplay.musicshop.service.SupplierService;
+import ru.randomplay.musicshop.entity.User;
+import ru.randomplay.musicshop.entity.WarehouseManager;
+import ru.randomplay.musicshop.service.*;
 
 @Controller
 @RequestMapping("/warehouse-manager")
@@ -23,12 +25,14 @@ public class WarehouseManagerController {
     private final SupplierService supplierService;
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final SupplyService supplyService;
+    private final WarehouseManagerService warehouseManagerService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model,
                             @RequestParam(required = false) String table) {
         if (table == null) {
-            model.addAttribute("supplies", null/*supplyService.getAll()*/);
+            model.addAttribute("supplies", supplyService.getAll());
         } else {
             switch (table) {
                 case "suppliers":
@@ -38,7 +42,7 @@ public class WarehouseManagerController {
                     model.addAttribute("products", productService.getAll());
                     break;
                 default:
-                    model.addAttribute("supplies", null/*supplyService.getAll()*/);
+                    model.addAttribute("supplies", supplyService.getAll());
                     break;
             }
         }
@@ -57,6 +61,12 @@ public class WarehouseManagerController {
         model.addAttribute("suppliers", supplierService.getAll());
         model.addAttribute("categories", categoryService.getAll());
         return "warehouse/newProduct";
+    }
+
+    @GetMapping("/add/supply")
+    public String newSupplyPage(Model model) {
+        model.addAttribute("products", productService.getAll());
+        return "warehouse/newSupply";
     }
 
     @GetMapping("/update/supplier/{id}")
@@ -91,6 +101,14 @@ public class WarehouseManagerController {
         }
         productService.save(productCreateRequest, image);
         return "redirect:/warehouse-manager/dashboard?table=products";
+    }
+
+    @PostMapping("/add/supply")
+    public String newSupply(@Valid @ModelAttribute SupplyCreateRequest supplyCreateRequest,
+                            @AuthenticationPrincipal User user) {
+        WarehouseManager warehouseManager = warehouseManagerService.getByEmail(user.getEmail());
+        supplyService.create(supplyCreateRequest, warehouseManager);
+        return "redirect:/warehouse-manager/dashboard?table=supplies";
     }
 
     @PostMapping("/update/supplier/{id}")

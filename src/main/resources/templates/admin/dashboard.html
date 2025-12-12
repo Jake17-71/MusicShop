@@ -74,7 +74,7 @@
                 <tr th:each="admin : ${admins}">
                     <td>
                         <a
-                                th:href="@{/admin/update/{id}(id=${admin.id})}"
+                                th:href="@{'/admin/update/' + ${admin.id}}"
                                 th:text="${admin.id}"
                         ></a>
                     </td>
@@ -115,7 +115,7 @@
                 <tr th:each="employee : ${employees}">
                     <td>
                         <a
-                                th:href="@{/admin/update/employee/{id}(id=${employee.id})}"
+                                th:href="@{'/admin/update/employee/' + ${employee.id}}"
                                 th:text="${employee.id}"
                         ></a>
                     </td>
@@ -158,7 +158,7 @@
                 <tr th:each="warehouseManager : ${warehouseManagers}">
                     <td>
                         <a
-                                th:href="@{/admin/update/warehouse-manager/{id}(id=${warehouseManager.id})}"
+                                th:href="@{'/admin/update/warehouse-manager/' + ${warehouseManager.id}}"
                                 th:text="${warehouseManager.id}"
                         ></a>
                     </td>
@@ -176,7 +176,7 @@
         </div>
 
         <div th:remove="${orders} ? 'tag' : 'all'">
-            <h1 class="h2">Список активных заказов</h1>
+            <h1 class="h2">Список заказов</h1>
             <table class="table">
                 <thead>
                 <tr>
@@ -194,16 +194,24 @@
                 <tr th:each="order : ${orders}">
                     <td th:text="${order.id}"></td>
                     <td th:text="${order.customerLastName + ' ' + order.customerFirstName}"></td>
-                    <td th:text="${order.employeeLastName + ' ' + order.employeeFirstName}"></td>
+                    <td th:text="${order.employeeLastName != null ? order.employeeLastName + ' ' + order.employeeFirstName : '-'}"></td>
                     <td th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"></td>
                     <td>
-                        <div
-                                th:each="product : ${order.products}"
-                                th:text="${product.key} + ': ' + ${product.value}">
-                        </div>
+                        <ol class="table__ol">
+                            <li
+                                    class="table__item"
+                                    th:each="product : ${order.products}"
+                                    th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
+                            ></li>
+                        </ol>
                     </td>
-                    <td th:text="${order.totalPrice}"></td>
-                    <td th:text="${order.status == 'PAID' ? 'Оплачено' : ''}"></td>
+                    <td th:text="${order.totalPrice} + ' ₽'"></td>
+                    <td th:switch="${order.status.name()}">
+                        <p th:case="PAID">Оплачено</p>
+                        <p th:case="PENDING">Оплата ожидается</p>
+                        <p th:case="REFUNDED">Средства возвращены</p>
+                        <p th:case="FAILED">Оплата прервана / отменена</p>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -231,7 +239,7 @@
                 <tr th:each="store : ${stores}">
                     <td>
                         <a
-                                th:href="@{/admin/update/store/{id}(id=${store.id})}"
+                                th:href="@{'/admin/update/store/' + ${store.id}}"
                                 th:text="${store.id}"
                         ></a>
                     </td>

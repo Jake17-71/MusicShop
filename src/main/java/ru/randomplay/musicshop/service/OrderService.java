@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface OrderService {
 
-    void create(Customer customer, BigDecimal orderPrice);
-
     OrderResponse get(Long id);
 
     List<OrderResponse> getAll();
 
     List<OrderResponse> getAllWithoutConfirm();
 
-    void confirmOrder(Employee employee, Long orderId);
+    void create(Customer customer, BigDecimal orderPrice);
+
+    void confirm(Employee employee, Long orderId);
+
+    void reject(Employee employee, Long id);
 }

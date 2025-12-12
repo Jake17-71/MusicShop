@@ -16,7 +16,6 @@ import ru.randomplay.musicshop.model.ProductStatus;
 import ru.randomplay.musicshop.service.*;
 
 import java.math.BigDecimal;
-import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasRole('CUSTOMER')")
@@ -34,8 +33,7 @@ public class CustomerController {
         Customer customer = customerService.getByEmailWithCart(user.getEmail());
 
         // Получаем словарь товаров в виде (ID товара, его кол-во)
-        model.addAttribute("cartItems", cartService.getAll(customer.getCart()).stream()
-                .collect(Collectors.toMap(CartItemResponse::getProductId, CartItemResponse::getQuantity)));
+        model.addAttribute("cartItemsProductId", cartService.getAll(customer.getCart()).stream().map(CartItemResponse::getProductId).toList());
         model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
         model.addAttribute("categories", categoryService.getAll());
         return "customer/home";

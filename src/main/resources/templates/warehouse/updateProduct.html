@@ -23,7 +23,7 @@
     <h1 class="h2">Изменение информации о товаре</h1>
     <form
             method="post"
-            th:action="@{/warehouse-manager/update/product/{id}(id=${product.id})}"
+            th:action="@{'/warehouse-manager/update/product/' + ${product.id}}"
             enctype="multipart/form-data"
             class="form"
     >

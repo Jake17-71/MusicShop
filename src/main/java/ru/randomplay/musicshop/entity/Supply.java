@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -25,10 +26,7 @@ public class Supply {
     @JoinColumn(name = "warehouse_manager_id", nullable = false)
     private WarehouseManager warehouseManager;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id", nullable = false)
-    private Supplier supplier;
-
+    @CreationTimestamp
     @Column(name = "date", nullable = false)
     private LocalDate date;
 

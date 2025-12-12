@@ -48,10 +48,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/order/{id}")
-    public String confirmOrderPage(Model model,
-                                   @PathVariable Long id) {
+    public String orderPage(Model model,
+                            @PathVariable Long id) {
         model.addAttribute("order", orderService.get(id));
-        return "employee/confirmOrder";
+        return "employee/checkOrder";
     }
 
     @GetMapping("/add/category")
@@ -64,6 +64,22 @@ public class EmployeeController {
                                      @PathVariable Long id) {
         model.addAttribute("category", categoryService.get(id));
         return "employee/updateCategory";
+    }
+
+    @PostMapping("/confirm-order/{id}")
+    public String confirmOrder(@PathVariable Long id,
+                               @AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getByEmail(user.getEmail());
+        orderService.confirm(employee, id);
+        return "redirect:/employee/dashboard?table=orders";
+    }
+
+    @PostMapping("/reject-order/{id}")
+    public String rejectOrder(@PathVariable Long id,
+                              @AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getByEmail(user.getEmail());
+        orderService.reject(employee, id);
+        return "redirect:/employee/dashboard?table=orders";
     }
 
     @PostMapping("/add/category")
@@ -83,13 +99,5 @@ public class EmployeeController {
     public String deleteCategory(@PathVariable Long id) {
         categoryService.delete(id);
         return "redirect:/employee/dashboard?table=categories";
-    }
-
-    @PostMapping("/confirm-order/{id}")
-    public String confirmOrder(@PathVariable Long id,
-                               @AuthenticationPrincipal User user) {
-        Employee employee = employeeService.getByEmail(user.getEmail());
-        orderService.confirmOrder(employee, id);
-        return "redirect:/employee/dashboard?table=orders";
     }
 }

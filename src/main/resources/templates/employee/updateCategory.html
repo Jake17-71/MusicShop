@@ -24,7 +24,7 @@
 
     <form
             method="post"
-            th:action="@{/employee/update/category/{id}(id=${category.id})}"
+            th:action="@{'/employee/update/category/' + ${category.id}}"
             class="form"
             id="updateCategoryForm"
     >
@@ -63,7 +63,7 @@
     <div class="button__wrapper">
         <form
                 method="post"
-                th:action="@{/employee/delete/category/{id}(id=${category.id})}"
+                th:action="@{'/employee/delete/category/' + ${category.id}}"
                 onsubmit="return confirm('Вы уверены, что хотите удалить эту категорию?')"
         >
             <button

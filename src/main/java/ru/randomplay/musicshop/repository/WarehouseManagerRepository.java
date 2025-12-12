@@ -12,6 +12,11 @@ import java.util.Optional;
 @Repository
 public interface WarehouseManagerRepository extends JpaRepository<WarehouseManager, Long> {
     @Query("SELECT wm FROM WarehouseManager wm " +
+            "LEFT JOIN FETCH wm.user u " +
+            "WHERE u.email = :email")
+    Optional<WarehouseManager> findByEmail(@Param("email") String email);
+
+    @Query("SELECT wm FROM WarehouseManager wm " +
             "LEFT JOIN FETCH wm.store " +
             "LEFT JOIN FETCH wm.user " +
             "WHERE wm.id = :id")

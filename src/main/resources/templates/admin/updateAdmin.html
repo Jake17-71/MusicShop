@@ -24,7 +24,7 @@
 
     <form
             method="post"
-            th:action="@{/admin/update/{id}(id=${admin.id})}"
+            th:action="@{'/admin/update/' + ${admin.id}}"
             class="form"
     >
         <div class="field">

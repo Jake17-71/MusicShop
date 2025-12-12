@@ -24,7 +24,7 @@
     <h1 class="h2">Изменение информации о сотруднике</h1>
     <form
             method="post"
-            th:action="@{/admin/update/warehouse-manager/{id}(id=${warehouseManager.id})}"
+            th:action="@{'/admin/update/warehouse-manager/' + ${warehouseManager.id}}"
             class="form"
     >
         <div class="field--right">
@@ -132,13 +132,12 @@
                         th:value="${warehouseManager.storeId}"
                 >
                 <div class="custom-select-dropdown" id="storeDropdown">
-                    <th:block th:each="store : ${stores}">
-                        <div
-                                class="custom-select-option"
-                                th:data-value="${store.id}"
-                                th:text="${store.location}"
-                        ></div>
-                    </th:block>
+                    <div
+                            class="custom-select-option"
+                            th:each="store : ${stores}"
+                            th:data-value="${store.id}"
+                            th:text="${store.location}"
+                    ></div>
                     <div class="custom-select-option custom-select-option--empty-message empty-message">Ничего не
                         найдено
                     </div>

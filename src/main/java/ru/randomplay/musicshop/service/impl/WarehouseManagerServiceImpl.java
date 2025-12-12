@@ -28,6 +28,12 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public WarehouseManager getByEmail(String email) {
+        return warehouseManagerRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with email " + email + " doesn't exist"));
+    }
+
+    @Override
     public WarehouseManagerResponse get(Long id) {
         return warehouseManagerMapper.toWarehouseManagerResponse(warehouseManagerRepository.findByIdWithUserAndStore(id)
                 .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with ID " + id + " doesn't exist")));

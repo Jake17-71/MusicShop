@@ -24,7 +24,7 @@
 
     <form
             method="post"
-            th:action="@{/warehouse-manager/update/supplier/{id}(id=${supplier.id})}"
+            th:action="@{'/warehouse-manager/update/supplier/' + ${supplier.id}}"
             class="form"
     >
         <div class="field">
