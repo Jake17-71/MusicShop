@@ -5,8 +5,9 @@
 
   &__list-wrapper {
     width: 100%;
-    color: var(--text);
     padding: 16px;
+    color: var(--text);
+
     // border, border-radius, background через .u-card в HTML
   }
 
@@ -15,18 +16,20 @@
     flex-direction: column;
     justify-content: center;
     gap: var(--list-items-gap);
+
     // список с разделителями через .u-list-divider в HTML
   }
 
   &-card {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 24px;
     width: 100%;
-    align-items: center;
-    justify-content: space-between;
 
     &__image-wrapper {
       max-width: 250px;
+
       // width, aspect-ratio, border-radius через .u-image-wrapper в HTML
     }
 
@@ -36,12 +39,13 @@
 
     &__controls {
       display: flex;
-      gap: 24px;
       align-items: center;
+      gap: 24px;
     }
 
     &__choose-quantity {
       @include flex-center;
+
       gap: 16px;
     }
   }

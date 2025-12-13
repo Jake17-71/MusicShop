@@ -1,27 +1,27 @@
 @use '../helpers/index' as *;
 
 .button {
-  height: var(--input-height);
+  align-self: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 60%;
-  background-color: var(--primary);
-  border-radius: var(--border-radius);
-  border: none;
-  color: var(--text);
+  height: var(--input-height);
+  padding: var(--padding);
   font-size: 16px;
   font-weight: 500;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
   text-align: center;
-  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-m);
   cursor: pointer;
 
   @include hover {
+    color: var(--bg);
     background-color: var(--primary-active);
     transition-duration: var(--transition-duration);
-    color: var(--bg);
   }
 
   &:active {
@@ -37,22 +37,23 @@
     background-color: var(--caret);
 
     @include hover {
-      background-color: var(--primary-active);
       color: var(--text);
+      background-color: var(--primary-active);
     }
   }
 
   &--add {
-    width: 30%;
     flex-shrink: 0;
+    width: 30%;
   }
 
   &--remove,
   &--decrement,
   &--increment {
     @include square(48px);
-    border-radius: var(--border-radius);
+
     flex-shrink: 0;
     align-items: center;
+    border-radius: var(--border-radius);
   }
 }

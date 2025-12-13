@@ -3,12 +3,12 @@
 .input {
   --input-width: 250px;
 
+  width: var(--input-width);
+  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--padding);
-  background-color: var(--bg-light);
-  color: var(--text);
-  width: var(--input-width);
 
   @include hover {
     background-color: var(--bg-dark);
@@ -17,9 +17,9 @@
   }
 
   &:focus {
-    outline: none;
     background-color: var(--bg);
     border-color: var(--primary-focus);
+    outline: none;
   }
 
   &--wide {
@@ -27,12 +27,12 @@
   }
 
   &--textarea {
-    resize: vertical;
     min-height: 200px;
+    resize: vertical;
   }
 
   &--image {
-    @include hover() {
+    @include hover {
       background-color: var(--bg-light);
       border: var(--border);
     }
@@ -48,8 +48,8 @@
   &[type="file"] {
     --input-width: 400px;
 
-    padding: var(--padding);
     width: var(--input-width);
+    padding: var(--padding);
 
     @include hover {
       background-color: var(--bg-light);
@@ -57,12 +57,12 @@
     }
 
     &::file-selector-button {
+      margin-right: calc(var(--padding) * 2);
+      padding: var(--padding);
+      color: var(--text);
+      background-color: var(--bg-light);
       border: var(--border);
       border-radius: var(--border-radius);
-      padding: var(--padding);
-      background-color: var(--bg-light);
-      color: var(--text);
-      margin-right: calc(var(--padding) * 2);
       transition-duration: var(--transition-duration);
 
       @include hover {

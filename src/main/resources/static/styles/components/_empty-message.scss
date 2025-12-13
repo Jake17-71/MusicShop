@@ -1,9 +1,10 @@
 @use '../helpers/index' as *;
 
 .empty-message {
-  @include flex-center();
+  @include flex-center;
+
   min-height: 250px;
-  color: var(--error);
   font-weight: 600;
   text-align: center;
+  color: var(--error);
 }

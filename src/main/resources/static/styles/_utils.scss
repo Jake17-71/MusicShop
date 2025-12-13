@@ -38,30 +38,30 @@
 // Утилиты для работы с текстом
 .u-text-ellipsis {
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 // Утилиты для изображений
 .u-image {
   width: 100%;
   height: 100%;
-  border-radius: inherit;
   object-fit: cover;
+  border-radius: inherit;
 }
 
 .u-image-wrapper {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--border-radius);
   overflow: hidden;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: var(--border-radius);
 }
 
 // Утилиты для карточек
 .u-card {
+  background-color: var(--bg-light);
   border: var(--border);
   border-radius: 8px;
-  background-color: var(--bg-light);
 }
 
 // Утилиты для списков

@@ -1,10 +1,10 @@
 @use '../helpers/index' as *;
 
 .select {
-  max-width: var(--input-width);
   overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: var(--input-width);
   white-space: nowrap;
+  text-overflow: ellipsis;
 
   option {
     overflow: hidden;
@@ -27,34 +27,34 @@
 
 .custom-select-dropdown {
   position: absolute;
+  z-index: 1000;
   top: 100%;
-  left: 0;
   right: 0;
-  max-height: 0;
-  min-width: 350px;
+  left: 0;
   overflow-y: auto;
+  min-width: 350px;
+  max-height: 0;
+  margin-top: 4px;
   background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  margin-top: 4px;
-  z-index: 1000;
   box-shadow: var(--shadow-l);
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
   transition-duration: var(--transition-duration);
 
   &.show {
     max-height: 300px;
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
   }
 }
 
 .custom-select-option {
   padding: var(--padding) 12px;
-  cursor: pointer;
   color: var(--text);
   border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
   transition-duration: var(--transition-duration);
 
   &:last-child {
@@ -66,13 +66,13 @@
   }
 
   &:active {
-    background-color: var(--primary);
     color: var(--bg-light);
+    background-color: var(--primary);
   }
 
   &--empty-message {
-    color: var(--text-muted);
     display: none;
+    color: var(--text-muted);
     pointer-events: none;
 
     @include hover {
@@ -80,8 +80,8 @@
     }
 
     &:active {
-      background-color: var(--bg-light);
       color: var(--text-muted);
+      background-color: var(--bg-light);
     }
 
     &.show {

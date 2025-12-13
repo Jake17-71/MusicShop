@@ -1,12 +1,12 @@
 @use '../helpers/index' as *;
 
 .checkbox {
+  appearance: none;
+  appearance: none;
   position: absolute;
-  opacity: 0;
   width: 0;
   height: 0;
-  appearance: none;
-  -webkit-appearance: none;
+  opacity: 0;
 
   &:checked + .checkbox__box {
     background-color: var(--primary-active);
@@ -14,10 +14,11 @@
 
   &__box {
     display: inline-block;
-    @include square(24px);
-    border-radius: var(--border-radius);
     background-color: var(--border-muted);
+    border-radius: var(--border-radius);
     transition-duration: var(--transition-duration);
+
+    @include square(24px);
   }
 }
 

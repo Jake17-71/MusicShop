@@ -262,28 +262,28 @@ svg * {
 
 .u-text-ellipsis {
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .u-image {
   width: 100%;
   height: 100%;
-  border-radius: inherit;
   object-fit: cover;
+  border-radius: inherit;
 }
 
 .u-image-wrapper {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--border-radius);
   overflow: hidden;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: var(--border-radius);
 }
 
 .u-card {
+  background-color: var(--bg-light);
   border: var(--border);
   border-radius: 8px;
-  background-color: var(--bg-light);
 }
 
 .u-list-divider {
@@ -382,35 +382,35 @@ a[class] {
 }
 
 .button {
-  height: var(--input-height);
+  align-self: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 60%;
-  background-color: var(--primary);
-  border-radius: var(--border-radius);
-  border: none;
-  color: var(--text);
+  height: var(--input-height);
+  padding: var(--padding);
   font-size: 16px;
   font-weight: 500;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  display: inline-flex;
   text-align: center;
-  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-m);
   cursor: pointer;
 }
 @media (any-hover: hover) {
   .button:hover {
+    color: var(--bg);
     background-color: var(--primary-active);
     transition-duration: var(--transition-duration);
-    color: var(--bg);
   }
 }
 @media (any-hover: none) {
   .button:active {
+    color: var(--bg);
     background-color: var(--primary-active);
     transition-duration: var(--transition-duration);
-    color: var(--bg);
   }
 }
 .button:active {
@@ -425,36 +425,36 @@ a[class] {
 }
 @media (any-hover: hover) {
   .button--ready:hover {
-    background-color: var(--primary-active);
     color: var(--text);
+    background-color: var(--primary-active);
   }
 }
 @media (any-hover: none) {
   .button--ready:active {
-    background-color: var(--primary-active);
     color: var(--text);
+    background-color: var(--primary-active);
   }
 }
 .button--add {
-  width: 30%;
   flex-shrink: 0;
+  width: 30%;
 }
 .button--remove, .button--decrement, .button--increment {
   width: 48px;
   height: 48px;
-  border-radius: var(--border-radius);
   flex-shrink: 0;
   align-items: center;
+  border-radius: var(--border-radius);
 }
 
 .input {
   --input-width: 250px;
+  width: var(--input-width);
+  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--padding);
-  background-color: var(--bg-light);
-  color: var(--text);
-  width: var(--input-width);
 }
 @media (any-hover: hover) {
   .input:hover {
@@ -471,16 +471,16 @@ a[class] {
   }
 }
 .input:focus {
-  outline: none;
   background-color: var(--bg);
   border-color: var(--primary-focus);
+  outline: none;
 }
 .input--wide {
   --input-width: 400px;
 }
 .input--textarea {
-  resize: vertical;
   min-height: 200px;
+  resize: vertical;
 }
 @media (any-hover: hover) {
   .input--image:hover {
@@ -499,8 +499,8 @@ a[class] {
 }
 .input[type=file] {
   --input-width: 400px;
-  padding: var(--padding);
   width: var(--input-width);
+  padding: var(--padding);
 }
 @media (any-hover: hover) {
   .input[type=file]:hover {
@@ -515,12 +515,12 @@ a[class] {
   }
 }
 .input[type=file]::file-selector-button {
+  margin-right: calc(var(--padding) * 2);
+  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--padding);
-  background-color: var(--bg-light);
-  color: var(--text);
-  margin-right: calc(var(--padding) * 2);
   transition-duration: var(--transition-duration);
 }
 @media (any-hover: hover) {
@@ -543,10 +543,10 @@ a[class] {
 }
 
 .select {
-  max-width: var(--input-width);
   overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: var(--input-width);
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .select option {
   overflow: hidden;
@@ -567,33 +567,33 @@ a[class] {
 
 .custom-select-dropdown {
   position: absolute;
+  z-index: 1000;
   top: 100%;
-  left: 0;
   right: 0;
-  max-height: 0;
-  min-width: 350px;
+  left: 0;
   overflow-y: auto;
+  min-width: 350px;
+  max-height: 0;
+  margin-top: 4px;
   background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
-  margin-top: 4px;
-  z-index: 1000;
   box-shadow: var(--shadow-l);
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
   transition-duration: var(--transition-duration);
 }
 .custom-select-dropdown.show {
   max-height: 300px;
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
 }
 
 .custom-select-option {
   padding: var(--padding) 12px;
-  cursor: pointer;
   color: var(--text);
   border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
   transition-duration: var(--transition-duration);
 }
 .custom-select-option:last-child {
@@ -610,12 +610,12 @@ a[class] {
   }
 }
 .custom-select-option:active {
-  background-color: var(--primary);
   color: var(--bg-light);
+  background-color: var(--primary);
 }
 .custom-select-option--empty-message {
-  color: var(--text-muted);
   display: none;
+  color: var(--text-muted);
   pointer-events: none;
 }
 @media (any-hover: hover) {
@@ -629,8 +629,8 @@ a[class] {
   }
 }
 .custom-select-option--empty-message:active {
-  background-color: var(--bg-light);
   color: var(--text-muted);
+  background-color: var(--bg-light);
 }
 .custom-select-option--empty-message.show {
   display: block;
@@ -639,23 +639,23 @@ a[class] {
 }
 
 .checkbox {
+  appearance: none;
+  appearance: none;
   position: absolute;
-  opacity: 0;
   width: 0;
   height: 0;
-  appearance: none;
-  -webkit-appearance: none;
+  opacity: 0;
 }
 .checkbox:checked + .checkbox__box {
   background-color: var(--primary-active);
 }
 .checkbox__box {
   display: inline-block;
+  background-color: var(--border-muted);
+  border-radius: var(--border-radius);
+  transition-duration: var(--transition-duration);
   width: 24px;
   height: 24px;
-  border-radius: var(--border-radius);
-  background-color: var(--border-muted);
-  transition-duration: var(--transition-duration);
 }
 
 .label__category {
@@ -664,30 +664,30 @@ a[class] {
 
 .fieldset {
   --fieldset-width: 400px;
-  border: var(--border);
-  border-radius: var(--border-radius);
-  padding: var(--padding);
-  background-color: var(--bg-light);
-  color: var(--text);
-  width: var(--fieldset-width);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+  width: var(--fieldset-width);
+  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--bg-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
 }
 .fieldset label, .fieldset__link {
   --input-height: 48px;
-  height: var(--input-height);
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: var(--input-height);
+  padding: var(--padding) 10px;
+  white-space: nowrap;
   background-color: var(--bg);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--padding) 10px;
-  gap: 8px;
   cursor: pointer;
-  white-space: nowrap;
-  width: 100%;
 }
 @media (any-hover: hover) {
   .fieldset label:hover, .fieldset__link:hover {
@@ -714,19 +714,19 @@ a[class] {
 .link {
   --input-height: 48px;
   position: relative;
-  align-items: center;
-  justify-content: center;
   display: inline-flex;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
   height: var(--input-height);
-  text-decoration: none;
-  background-color: var(--primary);
-  border-radius: var(--border-radius);
-  border: none;
-  color: var(--text);
   padding: var(--padding);
   padding-right: 40px;
   font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-m);
 }
 .link::after {
@@ -741,16 +741,16 @@ a[class] {
 }
 @media (any-hover: hover) {
   .link:hover {
+    color: var(--bg);
     background-color: var(--primary-active);
     transition-duration: var(--transition-duration);
-    color: var(--bg);
   }
 }
 @media (any-hover: none) {
   .link:active {
+    color: var(--bg);
     background-color: var(--primary-active);
     transition-duration: var(--transition-duration);
-    color: var(--bg);
   }
 }
 .link:active {
@@ -770,14 +770,14 @@ a[class] {
 
 .field {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
 }
 .field--right {
   display: flex;
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
   gap: 12px;
 }
 .field--top {
@@ -792,8 +792,8 @@ a[class] {
   gap: 6px;
 }
 .auth__error {
-  color: var(--error);
   text-align: center;
+  color: var(--error);
   animation: shake 1s;
 }
 
@@ -836,20 +836,20 @@ a[class] {
   justify-content: center;
   align-items: center;
   min-height: 250px;
-  color: var(--error);
   font-weight: 600;
   text-align: center;
+  color: var(--error);
 }
 
 .header {
+  position: relative;
   display: flex;
-  gap: 24px;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-inline: calc(var(--container-padding-x) * 2);
   background-color: var(--bg-light);
   border-bottom: 2px solid var(--border-color);
-  position: relative;
-  padding-inline: calc(var(--container-padding-x) * 2);
 }
 .header::before {
   content: "";
@@ -865,10 +865,10 @@ a[class] {
 .header::after {
   content: "";
   z-index: -1;
-  transform: translateY(2px);
   width: 100vw;
   height: 100%;
   border-bottom: 2px solid var(--border-color);
+  transform: translateY(2px);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -882,14 +882,14 @@ a[class] {
 }
 @media (any-hover: hover) {
   .header__logo:hover {
-    opacity: 0.5;
     color: var(--text);
+    opacity: 0.5;
   }
 }
 @media (any-hover: none) {
   .header__logo:active {
-    opacity: 0.5;
     color: var(--text);
+    opacity: 0.5;
   }
 }
 @media (any-hover: hover) {
@@ -930,8 +930,8 @@ a[class] {
   font-size: clamp(1rem, 0.8791322314rem + 0.4958677686vw, 1.375rem);
 }
 .section--tables {
-  align-items: flex-start;
   flex-direction: row;
+  align-items: flex-start;
   gap: 56px;
 }
 .section--auth {
@@ -947,22 +947,22 @@ a[class] {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: var(--border);
-  border-radius: var(--border-radius);
-  background-color: var(--bg-light);
-  padding: 24px;
   width: 100%;
   height: 100%;
+  padding: 24px;
+  background-color: var(--bg-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow-l);
 }
 .product-card__image-wrapper {
   max-width: 250px;
 }
 .product-card__content {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 .product-card__title {
   width: 100%;
@@ -986,40 +986,40 @@ a[class] {
   gap: 12px;
 }
 .tables__controls {
-  max-width: 350px;
   align-items: stretch;
+  max-width: 350px;
   padding-top: calc(var(--container-padding-x) * 5);
 }
 .tables__controls-button {
-  width: 300px;
   flex: 0;
+  width: 300px;
 }
 
 .table {
-  width: 1500px;
-  border-collapse: collapse;
-  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: var(--shadow-l);
+  width: 1500px;
   background-color: var(--bg-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-l);
+  border-collapse: collapse;
 }
 .table thead {
-  background-color: var(--primary);
   color: var(--bg);
+  background-color: var(--primary);
 }
 .table thead tr th {
   padding: 14px;
-  text-align: center;
   font-weight: 600;
+  text-align: center;
   border-bottom: 2px solid var(--caret);
 }
 .table thead tr th:not(:last-child) {
   border-right: 1px solid var(--bg-light);
 }
 .table tbody tr {
+  background-color: var(--bg);
   border-bottom: 1px solid var(--border-color);
   transition: background-color var(--transition-duration);
-  background-color: var(--bg);
 }
 .table tbody tr:nth-child(odd) {
   background-color: var(--bg-light);
@@ -1039,8 +1039,8 @@ a[class] {
 }
 .table tbody tr td {
   padding: 14px 16px;
-  color: var(--text);
   text-align: center;
+  color: var(--text);
 }
 .table__ol {
   width: 100%;
@@ -1064,17 +1064,17 @@ a[class] {
 
 .home {
   flex-direction: row;
-  align-items: start;
   justify-content: space-around;
+  align-items: start;
   gap: 56px;
 }
 .home__controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
   position: sticky;
   top: 20px;
+  width: 30%;
 }
 .home__products {
   width: 70%;
@@ -1091,15 +1091,14 @@ a[class] {
 .home__products-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  place-items: center stretch;
   gap: 24px;
-  justify-items: stretch;
-  align-items: center;
   padding: 24px;
 }
 .home__item {
-  max-width: 350px;
-  min-width: 0;
   width: 100%;
+  min-width: 0;
+  max-width: 350px;
   height: 100%;
 }
 
@@ -1107,11 +1106,11 @@ a[class] {
   --image-width: 350px;
 }
 .product__card {
-  width: 100%;
   display: grid;
   grid-template-columns: var(--image-width) 1fr;
   grid-template-areas: "image content" "tags tags";
   gap: 24px;
+  width: 100%;
   padding: 36px;
 }
 .product__image-wrapper {
@@ -1121,8 +1120,8 @@ a[class] {
 .product__content {
   grid-area: content;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   gap: 16px;
 }
 .product__title {
@@ -1141,14 +1140,14 @@ a[class] {
   justify-content: start;
   align-items: center;
 }
-.product__cart .button-submit {
+.product__cart .button--submit {
   width: auto;
 }
 .product__tags {
   grid-area: tags;
-  width: 100%;
   display: flex;
   gap: 12px;
+  width: 100%;
 }
 .product__fieldset {
   width: 100%;
@@ -1162,8 +1161,8 @@ a[class] {
 }
 .cart__list-wrapper {
   width: 100%;
-  color: var(--text);
   padding: 16px;
+  color: var(--text);
 }
 .cart__list {
   display: flex;
@@ -1173,18 +1172,18 @@ a[class] {
 }
 .cart-card {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 24px;
   width: 100%;
-  align-items: center;
-  justify-content: space-between;
 }
 .cart-card__image-wrapper {
   max-width: 250px;
 }
 .cart-card__controls {
   display: flex;
-  gap: 24px;
   align-items: center;
+  gap: 24px;
 }
 .cart-card__choose-quantity {
   display: flex;
@@ -1208,13 +1207,13 @@ a[class] {
   gap: 16px;
 }
 .order__controls {
-  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 24px;
+  width: 35%;
 }
-.order__controls .button-submit {
+.order__controls .button--submit {
   width: 100%;
 }
 .order__label {
@@ -1234,8 +1233,8 @@ a[class] {
   justify-content: center;
   align-items: center;
   justify-content: space-between;
-  width: 55%;
   gap: 36px;
+  width: 55%;
 }
 .supply__list, .supply__item {
   width: 100%;
@@ -1257,10 +1256,10 @@ a[class] {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   gap: 24px;
+  width: 100%;
 }
-.supply__controls .button-submit {
+.supply__controls .button--submit {
   width: 30%;
 }
 
