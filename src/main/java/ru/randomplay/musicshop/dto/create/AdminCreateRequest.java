@@ -18,11 +18,11 @@ public class AdminCreateRequest {
     private String password;
 
     @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(min = 2, max = 32)
     private String firstName;
 
     @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(min = 2, max = 32)
     private String lastName;
 
     private String phone;
