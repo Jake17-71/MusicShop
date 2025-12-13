@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Поставки</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
+</head>
+
+<body>
+<section class="section container section--tables">
+    <h1 class="visually-hidden">Информация по таблицам</h1>
+    <div class="tables tables__controls">
+        <a
+                href="/warehouse-manager/dashboard?table=supplies"
+                class="link tables__controls-button"
+        >Список поставок
+        </a>
+        <a
+                href="/warehouse-manager/dashboard?table=suppliers"
+                class="link tables__controls-button"
+        >Список поставщиков
+        </a>
+        <a
+                href="/warehouse-manager/dashboard?table=products"
+                class="link tables__controls-button"
+        >Список товаров
+        </a>
+    </div>
+
+    <div class="tables tables__wrapper">
+        <h1 class="h2">Список поставок</h1>
+        <a
+                class="link"
+                href="/warehouse-manager/add/supply"
+        >Добавить поставку
+        </a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Заведующий складом</th>
+                <th scope="col">Дата поставки</th>
+                <th scope="col">Поставленные товары</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="supply : ${supplies}">
+                <td th:text="${supply.id}"></td>
+                <td th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></td>
+                <td th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></td>
+                <td>
+                    <ol class="table__ol">
+                        <li
+                                class="table__item"
+                                th:each="product : ${supply.supplyItems}"
+                                th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
+                        ></li>
+                    </ol>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

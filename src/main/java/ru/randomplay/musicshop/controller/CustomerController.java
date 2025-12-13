@@ -27,16 +27,20 @@ public class CustomerController {
     private final OrderService orderService;
 
     @GetMapping("/home")
+    @PreAuthorize("hasRole('CUSTOMER') or isAnonymous()")
     public String home(Model model,
                        @AuthenticationPrincipal User user) {
-        Customer customer = customerService.getByEmailWithCart(user.getEmail());
-        model.addAttribute("cartItemsProductId", cartService.getAll(customer.getCart()).stream().map(CartItemResponse::getProductId).toList());
+        if (user != null) {
+            Customer customer = customerService.getByEmailWithCart(user.getEmail());
+            model.addAttribute("cartItemsProductId", cartService.getAll(customer.getCart()).stream().map(CartItemResponse::getProductId).toList());
+        }
         model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
         model.addAttribute("categories", categoryService.getAll());
         return "customer/home";
     }
 
     @GetMapping("/product/{id}")
+    @PreAuthorize("hasRole('CUSTOMER') or isAnonymous()")
     public String productPage(Model model,
                               @PathVariable Long id) {
         model.addAttribute("product", productService.get(id));
@@ -65,21 +69,21 @@ public class CustomerController {
 
     @GetMapping("/customer/profile")
     public String profilePage(Model model,
-                               @AuthenticationPrincipal User user) {
+                              @AuthenticationPrincipal User user) {
         model.addAttribute("customer", customerService.getByEmailWithUser(user.getEmail()));
         return "customer/profile";
     }
 
     @GetMapping("/customer/orders")
     public String ordersPage(Model model,
-                              @AuthenticationPrincipal User user) {
+                             @AuthenticationPrincipal User user) {
         model.addAttribute("orders", orderService.getAllByEmail(user.getEmail()));
         return "customer/orders";
     }
 
     @GetMapping("/customer/update")
     public String updateCustomerPage(Model model,
-                              @AuthenticationPrincipal User user) {
+                                     @AuthenticationPrincipal User user) {
         model.addAttribute("customer", customerService.getByEmailWithUser(user.getEmail()));
         return "customer/updateCustomer";
     }

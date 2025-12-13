@@ -65,10 +65,6 @@ public class OrderServiceImpl implements OrderService {
             }
 
             product.setQuantity(product.getQuantity() - quantityInCart);
-            if (product.getQuantity() == 0) {
-                product.setStatus(ru.randomplay.musicshop.model.ProductStatus.OUT_OF_STOCK);
-            }
-
             productRepository.save(product);
         }
 

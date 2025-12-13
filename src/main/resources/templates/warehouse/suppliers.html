@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
+</head>
+
+<body>
+<section class="section container section--tables">
+    <h1 class="visually-hidden">Информация по таблицам</h1>
+    <div class="tables tables__controls">
+        <a
+                href="/warehouse-manager/dashboard?table=supplies"
+                class="link tables__controls-button"
+        >Список поставок
+        </a>
+        <a
+                href="/warehouse-manager/dashboard?table=suppliers"
+                class="link tables__controls-button"
+        >Список поставщиков
+        </a>
+        <a
+                href="/warehouse-manager/dashboard?table=products"
+                class="link tables__controls-button"
+        >Список товаров
+        </a>
+    </div>
+
+    <div class="tables tables__wrapper">
+        <h1 class="h2">Список поставщиков</h1>
+        <div class="link__wrapper">
+            <a
+                    class="link"
+                    href="/warehouse-manager/add/supplier"
+            >Добавить поставщика
+            </a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Страна</th>
+                <th scope="col">Дата начала контракта</th>
+                <th scope="col">Дата окончания контракта</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="supplier : ${suppliers}">
+                <td>
+                    <a
+                            th:href="@{'/warehouse-manager/update/supplier/' + ${supplier.id}}"
+                            th:text="${supplier.id}"
+                    ></a>
+                </td>
+                <td th:text="${supplier.name}"></td>
+                <td th:text="${supplier.country}"></td>
+                <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>
+                <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

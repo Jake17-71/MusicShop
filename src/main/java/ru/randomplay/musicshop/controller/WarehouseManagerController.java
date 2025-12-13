@@ -33,20 +33,19 @@ public class WarehouseManagerController {
                             @RequestParam(required = false) String table) {
         if (table == null) {
             model.addAttribute("supplies", supplyService.getAll());
-        } else {
-            switch (table) {
-                case "suppliers":
-                    model.addAttribute("suppliers", supplierService.getAll());
-                    break;
-                case "products":
-                    model.addAttribute("products", productService.getAll());
-                    break;
-                default:
-                    model.addAttribute("supplies", supplyService.getAll());
-                    break;
-            }
+            return "warehouse/supplies";
         }
-        return "warehouse/dashboard";
+        switch (table) {
+            case "suppliers":
+                model.addAttribute("suppliers", supplierService.getAll());
+                return "warehouse/suppliers";
+            case "products":
+                model.addAttribute("products", productService.getAll());
+                return "warehouse/products";
+            default:
+                model.addAttribute("supplies", supplyService.getAll());
+                return "warehouse/supplies";
+        }
     }
 
     @GetMapping("/add/supplier")

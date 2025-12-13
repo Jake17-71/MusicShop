@@ -36,17 +36,17 @@
                     required
             >
                 <option
-                        value="ACTIVE"
+                        value="Работает"
                         th:selected="${store.status.name() == 'ACTIVE'}"
                 >Работает
                 </option>
                 <option
-                        value="CLOSED"
+                        value="Закрыт навсегда"
                         th:selected="${store.status.name() == 'CLOSED'}"
                 >Закрыт навсегда
                 </option>
                 <option
-                        value="INACTIVE"
+                        value="Временно закрыт"
                         th:selected="${store.status.name() == 'INACTIVE'}"
                 >Временно закрыт
                 </option>

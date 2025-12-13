@@ -20,7 +20,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         // Разрешаем данные эндпоинты для всех
-                        .requestMatchers("/login", "/registration", "/styles/**", "/scripts/**").permitAll()
+                        .requestMatchers("/login", "/registration", "/home", "/product/{id}",
+                                "/styles/**", "/scripts/**", "/icons/**", "/images/**").permitAll()
+                        // Данные эндпоинты требуют специальной роли
                         .requestMatchers("/employee/**").hasRole("EMPLOYEE")
                         .requestMatchers("/warehouse-manager/**").hasRole("WAREHOUSE_MANAGER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -40,7 +42,7 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .permitAll())
-                // Настраиваем csrf (достаточно использовать thymeleaf в формах - th:action)
+                // Настраиваем csrf (достаточно использовать thymeleaf в формах - th:action и "_csrf" автоматически вставится)
                 .csrf(Customizer.withDefaults());
 
         return http.build();

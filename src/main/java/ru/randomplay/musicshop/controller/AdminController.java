@@ -26,26 +26,25 @@ public class AdminController {
                             @RequestParam(required = false) String table) {
         if (table == null) {
             model.addAttribute("admins", adminService.getAll());
-        } else {
-            switch (table) {
-                case "employees":
-                    model.addAttribute("employees", employeeService.getAll());
-                    break;
-                case "warehouseManagers":
-                    model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
-                    break;
-                case "stores":
-                    model.addAttribute("stores", storeService.getAll());
-                    break;
-                case "orders":
-                    model.addAttribute("orders", orderService.getAll());
-                    break;
-                default:
-                    model.addAttribute("admins", adminService.getAll());
-                    break;
-            }
+            return "admin/admins";
         }
-        return "admin/dashboard";
+        switch (table) {
+            case "employees":
+                model.addAttribute("employees", employeeService.getAll());
+                return "admin/employees";
+            case "warehouseManagers":
+                model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
+                return "admin/warehouseManagers";
+            case "stores":
+                model.addAttribute("stores", storeService.getAll());
+                return "admin/stores";
+            case "orders":
+                model.addAttribute("orders", orderService.getAll());
+                return "admin/orders";
+            default:
+                model.addAttribute("admins", adminService.getAll());
+                return "admin/admins";
+        }
     }
 
     @GetMapping("/add")

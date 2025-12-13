@@ -31,20 +31,19 @@ public class EmployeeController {
                                @RequestParam(required = false) String table) {
         if (table == null) {
             model.addAttribute("orders", orderService.getAllWithoutConfirm());
-        } else {
-            switch (table) {
-                case "products":
-                    model.addAttribute("products", productService.getAll());
-                    break;
-                case "categories":
-                    model.addAttribute("categories", categoryService.getAll());
-                    break;
-                default:
-                    model.addAttribute("orders", orderService.getAllWithoutConfirm());
-                    break;
-            }
+            return "employee/orders";
         }
-        return "employee/dashboard";
+        switch (table) {
+            case "products":
+                model.addAttribute("products", productService.getAll());
+                return "employee/products";
+            case "categories":
+                model.addAttribute("categories", categoryService.getAll());
+                return "employee/categories";
+            default:
+                model.addAttribute("orders", orderService.getAllWithoutConfirm());
+                return "employee/orders";
+        }
     }
 
     @GetMapping("/order/{id}")

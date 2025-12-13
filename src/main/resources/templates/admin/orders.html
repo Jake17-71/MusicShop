@@ -19,40 +19,57 @@
 </head>
 
 <body>
-<header th:replace="~{customer/header :: header}"></header>
 <section class="section container section--tables">
     <h1 class="visually-hidden">Информация по таблицам</h1>
     <div class="tables tables__controls">
         <a
-                href="/customer/profile"
+                href="/admin/dashboard?table=admins"
                 class="link tables__controls-button"
-        >Профиль</a>
+        >Список администраторов
+        </a>
         <a
-                href="/customer/orders"
+                href="/admin/dashboard?table=employees"
                 class="link tables__controls-button"
-        >Заказы</a>
+        >Список сотрудников
+        </a>
         <a
-                href="/customer/update"
+                href="/admin/dashboard?table=warehouseManagers"
                 class="link tables__controls-button"
-        >Измененить профиль</a>
+        >Список заведующих складом
+        </a>
+        <a
+                href="/admin/dashboard?table=orders"
+                class="link tables__controls-button"
+        >Список заказов
+        </a>
+        <a
+                href="/admin/dashboard?table=stores"
+                class="link tables__controls-button"
+        >Список магазинов
+        </a>
     </div>
 
 
     <div class="tables tables__wrapper">
-        <h2>Список заказов</h2>
+        <h1 class="h2">Список заказов</h1>
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Покупатель</th>
+                <th scope="col">Сотрудник</th>
                 <th scope="col">Время создания</th>
                 <th scope="col">Товары</th>
                 <th scope="col">Итоговая стоимость</th>
                 <th scope="col">Статус оплаты</th>
-                <th scope="col">Сотрудник</th>
             </tr>
             </thead>
 
             <tbody>
             <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.customerLastName + ' ' + order.customerFirstName}"></td>
+                <td th:text="${#strings.isEmpty(order.employeeLastName) ? '-' : order.employeeLastName + ' ' + order.employeeFirstName}"></td>
                 <td th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"></td>
                 <td>
                     <ol class="table__ol">
@@ -70,7 +87,6 @@
                     <p th:case="REFUNDED">Средства возвращены</p>
                     <p th:case="FAILED">Оплата прервана / отменена</p>
                 </td>
-                <td th:text="${order.employeeLastName + ' ' + order.employeeFirstName}"></td>
             </tr>
             </tbody>
         </table>
