@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 public class CustomerUpdateRequest {
     @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(min = 2, max = 32)
     private String lastName;
 
     @NotBlank
-    @Size(min = 3, max = 32)
+    @Size(min = 2, max = 32)
     private String firstName;
 
     private String phone;
