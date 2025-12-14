@@ -6,6 +6,7 @@ import ru.randomplay.musicshop.dto.response.ProductResponse;
 import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
 import ru.randomplay.musicshop.model.ProductStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductService {
@@ -14,6 +15,8 @@ public interface ProductService {
     List<ProductResponse> getAll();
 
     List<ProductResponse> getAllByStatus(ProductStatus status);
+
+    List<ProductResponse> getAllByCategoriesAndStatus(ArrayList<String> categories, ProductStatus status);
 
     void save(ProductCreateRequest productCreateRequest, MultipartFile image);
 

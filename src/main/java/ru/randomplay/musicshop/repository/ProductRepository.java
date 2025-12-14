@@ -27,7 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE p.id = :id")
     Optional<Product> findByIdWithCategoriesAndSupplier(@Param("id") Long id);
 
-    // делаем кастомный запрос, чтобы избиваться от N+1
     @Query("SELECT DISTINCT p FROM Product p " +
             "LEFT JOIN FETCH p.categoryLinks cl " +
             "LEFT JOIN FETCH cl.category " +
@@ -39,5 +38,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "LEFT JOIN FETCH cl.category " +
             "LEFT JOIN FETCH p.supplier " +
             "WHERE p.status = :status")
-    List<Product> findAllWithCategoriesAndSupplierByStatus(@Param("status") ProductStatus status);
+    List<Product> findAllByStatusWithCategoriesAndSupplier(@Param("status") ProductStatus status);
+
+    // Находим все товары, у которых содержатся все передаваемые категории
+    @Query("SELECT p FROM Product p " +
+            "LEFT JOIN FETCH p.categoryLinks cl " +
+            "LEFT JOIN FETCH cl.category " +
+            "LEFT JOIN FETCH p.supplier " +
+            "WHERE p.id IN (" +
+            "  SELECT p2.id FROM Product p2 " +
+            "  JOIN p2.categoryLinks cl2 " +
+            "  JOIN cl2.category c2 " +
+            "  WHERE c2.name IN :categoryNames " +
+            "  GROUP BY p2.id " +
+            "  HAVING COUNT(DISTINCT c2.name) = :categoryCount" +
+            ") " +
+            "AND p.status = :status")
+    List<Product> findAllByCategoriesAndStatusWithSupplier(@Param("categoryNames") List<String> categoryNames,
+                                                           @Param("categoryCount") int categoryCount,
+                                                           @Param("status") ProductStatus status);
 }

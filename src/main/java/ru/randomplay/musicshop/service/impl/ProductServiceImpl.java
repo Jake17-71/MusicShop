@@ -53,7 +53,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductResponse> getAllByStatus(ProductStatus status) {
-        return productMapper.toProductResponseList(productRepository.findAllWithCategoriesAndSupplierByStatus(status));
+        return productMapper.toProductResponseList(productRepository.findAllByStatusWithCategoriesAndSupplier(status));
+    }
+
+    @Override
+    public List<ProductResponse> getAllByCategoriesAndStatus(ArrayList<String> categories, ProductStatus status) {
+        return productMapper.toProductResponseList(productRepository.findAllByCategoriesAndStatusWithSupplier(categories, categories.size(), status));
     }
 
     private String createFilename(MultipartFile image) {
@@ -79,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
             filename = UUID.randomUUID() + extension;
 
             try {
-                image.transferTo(new File(uploadDir + File.separator + filename));
+                image.transferTo(new File(uploadDir + "products" + File.separator + filename));
             } catch (IOException e) {
                 throw new RuntimeException("Failed to save image", e);
             }
@@ -90,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
     private void deleteOldImage(String oldImageFilename) {
         if (oldImageFilename != null && !oldImageFilename.isEmpty()) {
             try {
-                Path oldImagePath = Paths.get(uploadDir, oldImageFilename);
+                Path oldImagePath = Paths.get(uploadDir + "products", oldImageFilename);
                 if (Files.exists(oldImagePath)) {
                     Files.delete(oldImagePath);
                 }

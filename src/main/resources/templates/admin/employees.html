@@ -91,7 +91,11 @@
                 <td th:text="${#strings.isEmpty(employee.phone)} ? '-' : ${employee.phone}"></td>
                 <td th:text="${#temporals.format(employee.registeredAt, 'dd.MM.yyyy')}"></td>
                 <td th:text="${employee.storeLocation}"></td>
-                <td th:text="${employee.status}"></td>
+                <td th:switch="${employee.status.name()}">
+                    <p th:case="ACTIVE">Работает</p>
+                    <p th:case="ON_LEAVE">В отпуске</p>
+                    <p th:case="FIRED">Уволен</p>
+                </td>
             </tr>
             </tbody>
         </table>

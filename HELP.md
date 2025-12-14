@@ -1,29 +1,36 @@
-Поля в аннотации @ManyToOne и ему подобных: https://javarush.com/quests/lectures/questhibernate.level13.lecture05
-Spring Security: https://www.geeksforgeeks.org/advance-java/implementing-database-authentication-and-authorization-with-spring-security-6/
-Про dto и MapStruct: https://habr.com/ru/articles/818489/
-Документация Thymeleaf: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax
+Поля в аннотации @ManyToOne и ему подобных: https://javarush.com/quests/lectures/questhibernate.level13.lecture05  
+Spring Security: https://www.geeksforgeeks.org/advance-java/implementing-database-authentication-and-authorization-with-spring-security-6/  
+Про dto и MapStruct: https://habr.com/ru/articles/818489/  
+Документация Thymeleaf: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax  
 
 @Data = @Getter + @Setter + @RequiredArgsConstructor + @EqualsAndHashCode + @ToString
 
-Spring boot JPA:
-save() - сохраняет/изменяет сущность в бд. Сами запросы в бд на изменение происходят в конце транзакции или если в процессе транзакции вызвался flush()
+Spring boot JPA:  
+save() - сохраняет/изменяет сущность в бд. Сами запросы в бд на изменение происходят в конце транзакции или если в процессе транзакции вызвался flush()  
 saveAndFlush() - сразу же формирует запросы сохранения/изменения сущности к бд (однако в рамках транзакции откат (rollback) всё ещё возможен)
 
 Лучше не использовать cascade = CascadeType.PERSIST с обоих сторон при двусторонних связях к одной таблице. Из-за этого могут воникать проблемы с unique constraint, т.к. обе владеющие стороны могут прописать один и тот же insert к таблице, из-за чего возникнет ошибка из-за существующего unique constraint
 
 Картинки хранятся в папке /images вне проекта, чтобы они не сохранялись в .jar после компилирования, чтобы браузер мог получать эти фотки (т.к. они не в static) был сделан WebConfig
 
-Тестовые пользователи: 
-CUSTOMER - aa@aa.a aaa
-EMPLOYEE - employee@empl.oyee employee
-WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
-ADMIN - admin@admin.ad admin
+При перезагрузке сервера или откате транзакций в MSSQL может возникнуть такая ситуация, что столбцы, объявленные как IDENTITY могут увеличить своё следующее значение на 1000 для int и на 10000 для long. Для обеспечения непрерывной последовательности необходимо использовать SEQUENCE
+
+Тестовые пользователи:  
+CUSTOMER - aa@aa.a aaa  
+EMPLOYEE - employee@empl.oyee employee  
+WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager  
+ADMIN - admin@admin.ad admin  
 
 Задачи frontend:
-1. В /admin/updateWarehouseManager (везде) неправильно отображаются выбираемые магазины (чекнуть потом)
-2. Рефактор js
-3. Сделать фильтрацию по тегам в home (и сделать кнопку "применить")
+1. Рефактор js
+2. В css разобраться с двойным justify-content в .supply__titles
+3. Сломалось отображение пустой корзины
+4. В warehouse/products выравнивать картинки товаров по центру
+5. В customer/product отцентрировать описание сверху и сделать названия этих заголовков больше или сделать жирными
+6. Исправить цвет текста при наведении на теги в customer/product
+7. Исправить цвет текста при наведении на товар в customer/checkOrder
 
 Задачи backend:
-1. Проверить весь проект через нейросеть
-2. Сделать постраничную работу с бд (то есть работаем условно только с 20 записями за раз)
+1. Доделать сообщения валидаций в dto (сделано только для AdminCreateRequest и CategoryCreateRequest) (попросить доделать нейронку)
+2. Проверить весь проект через нейросеть
+3. Сделать постраничную работу с бд (то есть работаем условно только с 20 записями за раз)

@@ -15,6 +15,10 @@ import ru.randomplay.musicshop.model.ProductStatus;
 import ru.randomplay.musicshop.service.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasRole('CUSTOMER')")
@@ -29,12 +33,23 @@ public class CustomerController {
     @GetMapping("/home")
     @PreAuthorize("hasRole('CUSTOMER') or isAnonymous()")
     public String home(Model model,
-                       @AuthenticationPrincipal User user) {
+                       @AuthenticationPrincipal User user,
+                       @RequestParam(required = false) ArrayList<String> category) {
         if (user != null) {
             Customer customer = customerService.getByEmailWithCart(user.getEmail());
-            model.addAttribute("cartItemsProductId", cartService.getAll(customer.getCart()).stream().map(CartItemResponse::getProductId).toList());
+            List<CartItemResponse> cartItemResponseList = cartService.getAll(customer.getCart());
+            Map<Long, Integer> cartItemsMap = cartItemResponseList.stream().collect(Collectors.
+                    toMap(CartItemResponse::getProductId, CartItemResponse::getQuantity));
+            model.addAttribute("cartItemsMap", cartItemsMap);
         }
-        model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
+
+        if (category != null && !category.isEmpty()) {
+            model.addAttribute("products", productService.getAllByCategoriesAndStatus(category, ProductStatus.ACTIVE));
+        } else {
+            model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
+        }
+
+        model.addAttribute("chosenCategories", category);
         model.addAttribute("categories", categoryService.getAll());
         return "customer/home";
     }
@@ -62,6 +77,10 @@ public class CustomerController {
     public String checkOrderPage(Model model,
                                  @AuthenticationPrincipal User user) {
         Customer customer = customerService.getByEmailWithCart(user.getEmail());
+        if (customer.getCart().getCartItems().isEmpty()) {
+            return "redirect:/home";
+        }
+
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
         return "/customer/checkOrder";

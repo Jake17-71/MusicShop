@@ -22,6 +22,7 @@ class Tags {
     this.options = Array.from(this.dropdown.querySelectorAll(this.selectors.options))
       .filter(option => !option.classList.contains('empty-message'))
 
+    this.removeNoResultsMessage()
     this.bindEvents()
   }
 

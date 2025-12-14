@@ -12,6 +12,6 @@ public class CategoryUpdateRequest {
     @Size(min = 3, max = 32)
     private String name;
 
-    @Size(min = 4, max = 256)
+    @Size(max = 256)
     private String description;
 }
