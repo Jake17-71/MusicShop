@@ -22,13 +22,7 @@ WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
 ADMIN - admin@admin.ad admin  
 
 Задачи frontend:
-1. Рефактор js
-2. В css разобраться с двойным justify-content в .supply__titles
-3. Сломалось отображение пустой корзины
-4. В warehouse/products выравнивать картинки товаров по центру
-5. В customer/product отцентрировать описание сверху и сделать названия этих заголовков больше или сделать жирными
-6. Исправить цвет текста при наведении на теги в customer/product
-7. Исправить цвет текста при наведении на товар в customer/checkOrder
+Нет задач
 
 Задачи backend:
 1. Доделать сообщения валидаций в dto (сделано только для AdminCreateRequest и CategoryCreateRequest) (попросить доделать нейронку)
